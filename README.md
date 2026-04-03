@@ -1,2 +1,2 @@
 # study
-공부한 것 들을 정리합니다.
+Python으로 개발한 Lambda와 Python Application
