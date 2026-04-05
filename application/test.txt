@@ -1,0 +1,31 @@
+# health check
+curl http://ALB_DNS/health
+
+# 예상 출력
+{"status":"ok"}
+
+# POST
+curl -X POST http://ALB_DNS/users   -H "Content-Type: application/json"   -d '{"username":"testuser","email":"test@worldpay.com","password":"pass1234"}'
+
+# 예상 출력
+{"message":"created"}
+
+# Get
+curl http://ALB_DNS/users/1
+
+# 예상 출력
+{"id":1,"username":"testuser","email":"test@worldpay.com"}
+
+# Delete
+curl -X DELETE http://ALB_DNS/users/1
+
+# 예상 출력
+{"message":"deleted"}
+
+# Update
+curl -X PUT http://ALB_DNS/users/1 \
+  -H "Content-Type: application/json" \
+  -d '{"username":"newuser","email":"new@worldpay.com","password":"newpass1234"}'
+  
+# 예상 출력
+{"updated":1}
