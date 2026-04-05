@@ -17,18 +17,10 @@ def parse_body(event):
 def lambda_handler(event, context):
     try:
         body = parse_body(event)
-        name = body.get("name", "Anonymous")    # name 없으면 기본값 Anonymous
-        message = body.get("message", "")
-
-        if not message:                         # message는 필수값
-            return {
-                "statusCode": 400,
-                "body": json.dumps({"error": "message is required"})
-            }
 
         os.makedirs(MOUNT_PATH, exist_ok=True)  # EFS 디렉토리 없으면 생성
 
-        entry = f"{name}: {message}\n"
+        entry = json.dumps(body, ensure_ascii=False)
 
         with open(FILE_PATH, "w", encoding="utf-8") as f:  # "w" 모드: 덮어쓰기
             f.write(entry)
@@ -37,7 +29,7 @@ def lambda_handler(event, context):
             "statusCode": 200,
             "body": json.dumps({
                 "message": "작성 완료",
-                "entry": entry.strip()
+                "entry": entry
             }, ensure_ascii=False)
         }
 
